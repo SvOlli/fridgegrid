@@ -1,0 +1,11 @@
+<FridgeGrid>
+  <comment text="VIC-20 NTSC&#xa;&#xa;provided by tokra of Analoge Akronymiker"/>
+  <elements>
+    <element width="1" x="3" y="0" height="30" color="#c0c0ff" text=""/>
+    <element width="65" x="4" y="0" height="1" color="#c0c0ff" text="65 Clocks"/>
+    <element width="5" x="4" y="1" height="1" color="#c0c0ff" text="invisible"/>
+    <element width="1" x="69" y="0" height="30" color="#c0c0ff" text=""/>
+    <element width="50" x="9" y="1" height="1" color="#c0c0ff" text="Screen Area"/>
+    <element width="10" x="59" y="1" height="1" color="#c0c0ff" text="Invisible"/>
+  </elements>
+</FridgeGrid>

@@ -1,0 +1,17 @@
+<FridgeGrid>
+  <comment text="Atari 2600 VCS Playfield Template&#xa;&#xa;This is a template for creating typical Atari 2600 VCS asymmerical playfields."/>
+  <elements>
+    <element width="1" x="81" y="0" height="30" color="#c0c0ff" text="End"/>
+    <element width="1" x="4" y="0" height="30" color="#c0c0ff" text="Start"/>
+    <element width="76" x="5" y="0" height="1" color="#c0c0ff" text="Total"/>
+    <element width="22" x="5" y="1" height="1" color="#c0c0ff" text="22 cycles, 68 TIA (Horizontal blank)"/>
+    <element width="54" x="27" y="1" height="1" color="#c0c0ff" text="54 cycles, 160 TIA (Visible scanline)"/>
+    <element width="6" x="27" y="2" height="1" color="#ffc0c0" text="PF0 in use"/>
+    <element width="11" x="33" y="3" height="1" color="#ffa0a0" text="PF1 in use"/>
+    <element width="12" x="43" y="4" height="1" color="#ff8080" text="PF2 in use"/>
+    <element width="6" x="54" y="2" height="1" color="#ffc0c0" text="PF0 in use"/>
+    <element width="12" x="59" y="3" height="1" color="#ffa0a0" text="PF1 in use"/>
+    <element width="11" x="70" y="4" height="1" color="#ff8080" text="PF2 in use"/>
+    <element width="1" x="27" y="0" height="30" color="#c0c0ff" text="HBlank"/>
+  </elements>
+</FridgeGrid>

@@ -1,0 +1,22 @@
+<FridgeGrid>
+  <elements>
+    <element width="1" x="68" y="0" height="30" color="#c0c0ff" text=""/>
+    <element width="2" x="66" y="2" height="1" color="#c0c0ff" text="S2 fetch"/>
+    <element width="2" x="64" y="2" height="1" color="#c0c0ff" text="S1 fetch"/>
+    <element width="2" x="62" y="2" height="1" color="#c0c0ff" text="S0 fetch"/>
+    <element width="5" x="62" y="1" height="1" color="#c0c0ff" text="Repeat last"/>
+    <element width="63" x="5" y="0" height="1" color="#c0c0ff" text="63 Clocks"/>
+    <element width="3" x="59" y="2" height="1" color="#c0c0ff" text="SB"/>
+    <element width="4" x="58" y="1" height="1" color="#c0c0ff" text="Repeat row"/>
+    <element width="40" x="19" y="2" height="1" color="#c0c0ff" text="SC"/>
+    <element width="40" x="18" y="1" height="1" color="#c0c0ff" text="DMA delay"/>
+    <element width="3" x="16" y="2" height="1" color="#c0c0ff" text="FLI"/>
+    <element width="2" x="13" y="2" height="1" color="#c0c0ff" text="S7 fetch"/>
+    <element width="2" x="11" y="2" height="1" color="#c0c0ff" text="S6 fetch"/>
+    <element width="2" x="9" y="2" height="1" color="#c0c0ff" text="S5 fetch"/>
+    <element width="2" x="7" y="2" height="1" color="#c0c0ff" text="S4 fetch"/>
+    <element width="2" x="5" y="2" height="1" color="#c0c0ff" text="S3 fetch"/>
+    <element width="13" x="5" y="1" height="1" color="#c0c0ff" text="Linecrunch"/>
+    <element width="1" x="4" y="0" height="30" color="#c0c0ff" text=""/>
+  </elements>
+</FridgeGrid>
