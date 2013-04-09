@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/MainWindow.cpp
+ * src/fridgegrid/MainWindow.cpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -33,17 +33,14 @@
 #include "DragLabel.hpp"
 
 
-const int DragWidget::cGridX = 19;
-const int DragWidget::cGridY = 19;
-
-
 DragWidget::DragWidget( QWidget *parent )
 : QWidget( parent )
 , mpTextEdit( 0 )
-, mGridSize( cGridX, cGridY )
+, mGridStyle( "Default", QSize(15,15),
+              QFont("ErbosDraco Nova Open NBP", 6), QPoint( 2, 1 ), true )
 {
    setMinimumSize( 400, 200 );
-   setAcceptDrops(true);
+   setAcceptDrops( true );
 }
 
 
@@ -54,7 +51,7 @@ DragWidget::~DragWidget()
 
 QSize DragWidget::gridSize()
 {
-   return mGridSize;
+   return mGridStyle.gridSize();
 }
 
 
@@ -70,30 +67,29 @@ void DragWidget::updateLabelPos( const QSize &newSize )
    QList<DragLabel*> labels( findChildren<DragLabel*>() );
    foreach( DragLabel *label, labels )
    {
-      QPoint gridPos( label->pos().x() / mGridSize.width(),
-                     label->pos().y() / mGridSize.height() );
-      sizemap.insert( label, gridPos );
+      sizemap.insert( label, pos2grid( label->pos() ) );
    }
-   mGridSize = newSize;
+   mGridStyle.setGridSize( newSize );
    foreach( DragLabel *label, labels )
    {
-      place( label, sizemap.value(label).x() * mGridSize.width(),
-                    sizemap.value(label).y() * mGridSize.height() );
+      place( label, grid2pos( sizemap.value(label) ) );
       label->draw();
    }
    update();
 }
 
 
-void DragWidget::setGridX( int x )
+QPoint DragWidget::grid2pos( const QPoint &pos )
 {
-   updateLabelPos( QSize( x, mGridSize.height() ) );
+   return QPoint( pos.x() / mGridStyle.gridSize().width(),
+                  pos.y() / mGridStyle.gridSize().height() );
 }
 
 
-void DragWidget::setGridY( int y )
+QPoint DragWidget::pos2grid( const QPoint &grid )
 {
-   updateLabelPos( QSize( mGridSize.width(), y ) );
+   return QPoint( grid.x() * mGridStyle.gridSize().width(),
+                  grid.y() * mGridStyle.gridSize().height() );
 }
 
 
@@ -268,11 +264,11 @@ void DragWidget::paintEvent( QPaintEvent *event )
    QPainter painter( this );
    painter.setRenderHint( QPainter::Antialiasing );
    painter.setBrush( Qt::black );
-   for( int i = mGridSize.width() - 1; i < size().width() ; i += mGridSize.width() )
+   for( int i = mGridStyle.gridSize().width() - 1; i < size().width() ; i += mGridStyle.gridSize().width() )
    {
       painter.drawLine( i, 0, i, size().height() - 1 );
    }
-   for( int i = mGridSize.height() - 1; i < size().height() ; i += mGridSize.height() )
+   for( int i = mGridStyle.gridSize().height() - 1; i < size().height() ; i += mGridStyle.gridSize().height() )
    {
       painter.drawLine( 0, i, size().width() - 1, i );
    }
@@ -282,21 +278,21 @@ void DragWidget::paintEvent( QPaintEvent *event )
 
 void DragWidget::place( QWidget *w, int x, int y )
 {
-   if( (x % mGridSize.width()) > (mGridSize.width() / 2) )
+   if( (x % mGridStyle.gridSize().width()) > (mGridStyle.gridSize().width() / 2) )
    {
-      x += mGridSize.width();
+      x += mGridStyle.gridSize().width();
    }
-   if( (y % mGridSize.height()) > (mGridSize.height() / 2) )
+   if( (y % mGridStyle.gridSize().height()) > (mGridStyle.gridSize().height() / 2) )
    {
-      y += mGridSize.height();
+      y += mGridStyle.gridSize().height();
    }
-   x -= (x % mGridSize.width());
-   y -= (y % mGridSize.height());
+   x -= (x % mGridStyle.gridSize().width());
+   y -= (y % mGridStyle.gridSize().height());
    w->move( x + 1, y + 1 );
 }
 
 
-void DragWidget::place(QWidget *w, const QPoint &p)
+void DragWidget::place( QWidget *w, const QPoint &p )
 {
    place( w, p.x(), p.y() );
 }
@@ -449,7 +445,7 @@ QVariant DragWidget::getData()
    foreach( DragLabel *label, labels )
    {
       QVariantMap map;
-      map.insert( "pos", label->pos() );
+      map.insert( "pos", pos2grid( label->pos() ) );
       map.insert( "data", label->toByteArray() );
       list.append( map );
    }
@@ -472,7 +468,7 @@ void DragWidget::setData( const QVariant &data )
    {
       QVariantMap map( element.toMap() );
       DragLabel *newLabel = new DragLabel( this );
-      QPoint pos = map.value( "pos" ).toPoint();
+      QPoint pos( grid2pos( map.value( "pos" ).toPoint() ) );
       newLabel->setFromByteArray( map.value( "data" ).toByteArray() );
       if( pos.isNull() )
       {
@@ -485,4 +481,16 @@ void DragWidget::setData( const QVariant &data )
          newLabel->setAttribute( Qt::WA_DeleteOnClose );
       }
    }
+}
+
+
+GridStyle DragWidget::gridStyle() const
+{
+   return mGridStyle;
+}
+
+
+void DragWidget::setGridStyle(const GridStyle &gridStyle)
+{
+   mGridStyle = gridStyle;
 }

@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/MainWindow.cpp
+ * src/fridgegrid/MainWindow.cpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -47,7 +47,6 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 
    QToolBar *toolBar = 0;
    QAction  *action  = 0;
-   QSpinBox *spinBox = 0;
 
    toolBar = addToolBar( tr("File") );
    toolBar->setObjectName( "FileToolBar" );
@@ -74,20 +73,6 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(newElement()) );
    toolBar->addAction( action );
-
-   spinBox = new QSpinBox( this );
-   spinBox->setRange( 7, 25 );
-   spinBox->setValue( mpDragWidget->gridSize().width() );
-   connect( spinBox, SIGNAL(valueChanged(int)),
-            mpDragWidget, SLOT(setGridX(int)) );
-   toolBar->addWidget( spinBox );
-
-   spinBox = new QSpinBox( this );
-   spinBox->setRange( 7, 25 );
-   spinBox->setValue( mpDragWidget->gridSize().height() );
-   connect( spinBox, SIGNAL(valueChanged(int)),
-            mpDragWidget, SLOT(setGridY(int)) );
-   toolBar->addWidget( spinBox );
 
    restoreGeometry( settings.value( "Geometry" ).toByteArray() );
    restoreState( settings.value( "State" ).toByteArray() );

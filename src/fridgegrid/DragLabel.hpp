@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/DragLabel.hpp
+ * src/fridgegrid/DragLabel.hpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -29,7 +29,6 @@ class QFrame;
 
 /* forward declaration of local classes */
 class DragWidget;
-
 
 
 /*!

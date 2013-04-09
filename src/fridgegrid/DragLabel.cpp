@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/MainWindow.cpp
+ * src/fridgegrid/MainWindow.cpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -174,6 +174,9 @@ void DragLabel::setGridSize( const QSize &size )
 
 void DragLabel::draw()
 {
+   QFont font( mpParent->gridStyle().font() );
+   font.setStyleStrategy( QFont::ForceOutline );
+
    if( mSize.width() <= 0 )
    {
       mSize.setWidth( 1 );
@@ -182,8 +185,9 @@ void DragLabel::draw()
    {
       mSize.setHeight( 1 );
    }
-   QFontMetrics metric(font());
-   QSize size = metric.size(Qt::TextSingleLine, mText);
+   QFontMetrics metric( font );
+   QString text( mpParent->gridStyle().toUpper() ? mText.toUpper() : mText );
+   QSize size = metric.size( Qt::TextSingleLine, text );
 
    int imgWidth = 0;
    int imgHeight = 0;
@@ -206,9 +210,6 @@ void DragLabel::draw()
    setSizeIncrement( grid );
    image.fill(qRgba(0, 0, 0, 0));
 
-   QFont font;
-   font.setStyleStrategy( QFont::ForceOutline );
-
    QPainter painter;
    painter.begin( &image );
    painter.setRenderHint( QPainter::Antialiasing );
@@ -226,7 +227,7 @@ void DragLabel::draw()
    {
       painter.setPen( QColor(0,0,0) );
    }
-   painter.drawText( QRect(QPoint(2, 0), size), Qt::AlignCenter, mText );
+   painter.drawText( QRect(mpParent->gridStyle().topLeft(), size), Qt::AlignCenter, text );
    painter.end();
 
    if( rotate )

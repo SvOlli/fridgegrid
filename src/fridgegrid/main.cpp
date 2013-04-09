@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/MainWindow.cpp
+ * src/fridgegrid/MainWindow.cpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -7,11 +7,15 @@
  */
 
 #include <QApplication>
+#include <QDir>
+#include <QFontDatabase>
 #include "MainWindow.hpp"
 
-int main(int argc, char *argv[])
+#include <QtDebug>
+
+int main( int argc, char *argv[] )
 {
-   //Q_INIT_RESOURCE(fridgemagnets);
+   Q_INIT_RESOURCE(FridgeGrid);
 
    QApplication::setOrganizationName("SvOlli");
    QApplication::setOrganizationDomain("svolli.org");
@@ -21,6 +25,14 @@ int main(int argc, char *argv[])
 #ifdef QT_KEYPAD_NAVIGATION
    QApplication::setNavigationMode(Qt::NavigationModeCursorAuto);
 #endif
+   {
+      QDir dir( ":/fonts" );
+      foreach( const QFileInfo &entry, dir.entryInfoList( QStringList("*.ttf")) )
+      {
+         int id = QFontDatabase::addApplicationFont( entry.absoluteFilePath() );
+         qDebug() << entry.absoluteFilePath() << id << QFontDatabase::applicationFontFamilies( id );
+      }
+   }
    MainWindow window;
 
 #ifdef Q_OS_SYMBIAN

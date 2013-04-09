@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/MainWindow.cpp
+ * src/fridgegrid/MainWindow.cpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)

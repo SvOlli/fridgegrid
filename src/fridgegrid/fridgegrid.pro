@@ -5,7 +5,7 @@ QT += xml
 
 include ( ../buildconfig.pri )
 
-#RESOURCES += Resources/Icons.qrc
+RESOURCES += ../resources/FridgeGrid.qrc
 #TRANSLATIONS += Translations/otts_de.ts
 CODECFORTR += UTF-8
 
@@ -17,6 +17,9 @@ HEADERS += DragLabelPropertiesDialog.hpp
 
 SOURCES += DragWidget.cpp
 HEADERS += DragWidget.hpp
+
+SOURCES += GridStyle.cpp
+HEADERS += GridStyle.hpp
 
 SOURCES += MainWindow.cpp
 HEADERS += MainWindow.hpp

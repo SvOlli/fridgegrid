@@ -1,4 +1,5 @@
 <FridgeGrid>
+  <comment text="C64 PAL&#xa;&#xa;as taken from lft's raster paper"/>
   <elements>
     <element width="1" x="68" y="0" height="30" color="#c0c0ff" text=""/>
     <element width="2" x="66" y="2" height="1" color="#c0c0ff" text="S2 fetch"/>

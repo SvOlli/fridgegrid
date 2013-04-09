@@ -1,5 +1,5 @@
 /*
- * tools/src/fridgemagnets/DragWidget.hpp
+ * src/fridgegrid/DragWidget.hpp
  * written by Sven Oliver Moll
  *
  * distributed under the terms of the GNU General Public License (GPL)
@@ -19,6 +19,7 @@
 /* local library headers */
 
 /* local headers */
+#include "GridStyle.hpp"
 
 /* forward declaration of Qt classes */
 class QDomDocument;
@@ -58,32 +59,34 @@ public:
    */
    QSize gridSize();
 
-   static const int cGridX; /*!< \brief \todo TODO */
-   static const int cGridY; /*!< \brief \todo TODO */
-
    QVariant getData();
    void setData( const QVariant &data );
+
+   GridStyle gridStyle() const;
+   void setGridStyle( const GridStyle &gridStyle );
 
    /*!
     \brief \todo
 
     \param textEdit
    */
-   void setTextEdit(QTextEdit *textEdit);
+   void setTextEdit( QTextEdit *textEdit );
 
+   /*!
+    \brief \todo
+
+    \param pos
+    \return QPoint
+   */
+   QPoint grid2pos( const QPoint &pos );
+   /*!
+    \brief \todo
+
+    \param grid
+    \return QPoint
+   */
+   QPoint pos2grid( const QPoint &grid );
 public slots:
-   /*!
-    \brief \todo
-
-    \param x
-   */
-   void setGridX( int x );
-   /*!
-    \brief \todo
-
-    \param y
-   */
-   void setGridY( int y );
    /*!
     \brief \todo
 
@@ -164,7 +167,7 @@ private:
    void updateLabelPos( const QSize &newSize );
 
    QTextEdit   *mpTextEdit; /*!< \brief \todo TODO */
-   QSize       mGridSize; /*!< \brief \todo TODO */
+   GridStyle   mGridStyle; /*!< \brief \todo TODO */
 };
 
 #endif

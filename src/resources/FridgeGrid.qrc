@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/erbosdraco_nova_open_nbp.ttf</file>
+        <file>fonts/erbosdraco_nova_open_nbp.txt</file>
+    </qresource>
+</RCC>
