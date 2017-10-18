@@ -14,12 +14,14 @@
 /* Qt headers */
 #include <QApplication>
 #include <QDomDocument>
+#include <QDrag>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QMimeData>
 #include <QPainter>
 #include <QSettings>
 #include <QTextStream>

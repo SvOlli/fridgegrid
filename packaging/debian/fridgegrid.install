@@ -1,0 +1,3 @@
+build/release/bin/fridgegrid usr/bin
+debian/fridgegrid.png usr/share/icons
+debian/fridgegrid.desktop usr/share/applications

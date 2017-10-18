@@ -12,7 +12,15 @@
 /* system headers */
 
 /* Qt headers */
-#include <QtGui>
+#include <QAction>
+#include <QApplication>
+#include <QCommonStyle>
+#include <QDockWidget>
+#include <QSettings>
+#include <QSplitter>
+#include <QTextEdit>
+#include <QTimer>
+#include <QToolBar>
 
 /* local library headers */
 

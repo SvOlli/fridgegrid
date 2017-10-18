@@ -4,13 +4,13 @@ QMAKE ?= qmake
 all: release
 
 debug release: src/Makefile
-	+(cd src;make $(MAKEFLAGS) $@)
+	make -C src $@
 
 src/Makefile:
 	(cd src;$(QMAKE) -r CONFIG+=debug_and_release)
 
 clean:
-	(cd src;make distclean)
+	[ ! -f src/Makefile ] || make -C src distclean
 	rm -rf build
 
 exe:

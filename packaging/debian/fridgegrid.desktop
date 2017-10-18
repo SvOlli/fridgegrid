@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=FridgeGrid
+Comment=A tool for the planing cycle exact code on retro systems
+GenericName=Harmony Programming Tool
+Exec=fridgegrid
+Icon=/usr/share/icons/fridgegrid.png
+Terminal=false
+Type=Application
+Categories=Utility;

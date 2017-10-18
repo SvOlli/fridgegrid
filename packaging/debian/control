@@ -1,0 +1,13 @@
+Source: fridgegrid
+Section: unknown
+Priority: optional
+Maintainer: Sven Oliver Moll <svolli@svolli.de>
+Build-Depends: debhelper (>= 9), qt5-default
+Standards-Version: 3.9.8
+Homepage: https://xayax.net/tools/fridegrid/
+
+Package: fridgegrid
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: tool for planning cycle exact oldschool effects
+ Todo: long description

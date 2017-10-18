@@ -1,7 +1,7 @@
 
 PROJECT = fridgegrid
 TEMPLATE = app
-QT += xml
+QT += xml widgets
 
 include ( ../buildconfig.pri )
 

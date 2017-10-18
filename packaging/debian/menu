@@ -1,0 +1,2 @@
+?package(fridgegrid):needs="X11|vc|wm" section="Applications"\
+  title="fridgegrid" command="/usr/bin/fridgegrid"
