@@ -300,6 +300,22 @@ void DragWidget::place( QWidget *w, const QPoint &p )
 }
 
 
+void DragWidget::exportPng()
+{
+   QSettings settings;
+   QFileInfo lastFilename( settings.value( "ExportFilename" ).toString() );
+   QString fileName = QFileDialog::getSaveFileName( this, QCoreApplication::applicationName(),
+                                                    lastFilename.absoluteFilePath(), "*.png" );
+   if( fileName.isEmpty() )
+   {
+      return;
+   }
+   settings.setValue( "ExportFilename", fileName );
+
+   grab().save( fileName );
+}
+
+
 void DragWidget::save()
 {
    QSettings settings;

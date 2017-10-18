@@ -61,15 +61,21 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    toolBar->setContextMenuPolicy( Qt::PreventContextMenu );
 
    action = new QAction( style.standardIcon( QStyle::SP_DialogOpenButton ), "Open", this );
-   action->setShortcuts( QKeySequence::New );
+   action->setShortcuts( QKeySequence::Open );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(load()) );
    toolBar->addAction( action );
 
    action = new QAction( style.standardIcon( QStyle::SP_DialogSaveButton ), "Save", this );
-   action->setShortcuts( QKeySequence::Open );
+   action->setShortcuts( QKeySequence::Save );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(save()) );
+   toolBar->addAction( action );
+
+   action = new QAction( style.standardIcon( QStyle::SP_CommandLink ), "Export", this );
+   action->setShortcuts( QKeySequence::SaveAs );
+   connect( action, SIGNAL(triggered()),
+            mpDragWidget, SLOT(exportPng()) );
    toolBar->addAction( action );
 
    toolBar = addToolBar( tr("Element") );

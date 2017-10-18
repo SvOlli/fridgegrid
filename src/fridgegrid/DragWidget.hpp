@@ -100,6 +100,11 @@ public slots:
    /*!
     \brief \todo
 
+   */
+   void exportPng();
+   /*!
+    \brief \todo
+
     \param d
     \param p
    */
