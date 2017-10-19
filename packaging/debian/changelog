@@ -1,3 +1,10 @@
+fridgegrid (1.1) unstable; urgency=medium
+
+  * export to png
+  * new file from template
+
+ -- Sven Oliver Moll <svolli@svolli.de>  Fri, 20 Oct 2017 01:08:49 +0200
+
 fridgegrid (1.0) unstable; urgency=medium
 
   * Initial Release.

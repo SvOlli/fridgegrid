@@ -15,18 +15,23 @@
 #include <QAction>
 #include <QApplication>
 #include <QCommonStyle>
+#include <QDir>
+#include <QFileInfo>
 #include <QDockWidget>
+#include <QMenu>
 #include <QSettings>
 #include <QSplitter>
 #include <QTextEdit>
 #include <QTimer>
 #include <QToolBar>
+#include <QToolButton>
 
 /* local library headers */
 
 /* local headers */
 #include "DragWidget.hpp"
 
+#include <QtDebug>
 
 MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 : QMainWindow( parent, flags )
@@ -36,6 +41,9 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 {
    QCommonStyle style;
    QSettings settings;
+   QMenu *templateMenu( new QMenu( this ) );
+
+   templateMenu->setObjectName( "TemplateMenu" );
 
    mpSplitter->setObjectName( "CentralSplitter" );
    mpSplitter->addWidget( mpTextEdit );
@@ -60,19 +68,48 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    toolBar->setObjectName( "FileToolBar" );
    toolBar->setContextMenuPolicy( Qt::PreventContextMenu );
 
-   action = new QAction( style.standardIcon( QStyle::SP_DialogOpenButton ), "Open", this );
+   action = new QAction( style.standardIcon( QStyle::SP_FileDialogNewFolder ), "New Grid", this );
+   action->setShortcuts( QKeySequence::New );
+   action->setMenu( templateMenu );
+   action->setVisible(true);
+   toolBar->addAction( action );
+
+   // just want to tell the associated button, that we always want the menu list
+   // can't this be done easier?
+   {
+      QList<QWidget*> wl( action->associatedWidgets() );
+      foreach(QWidget *w, wl)
+      {
+         QToolButton *b = qobject_cast<QToolButton*>(w);
+         if( b )
+         {
+            b->setPopupMode( QToolButton::InstantPopup );
+         }
+      }
+   }
+
+   QFileInfoList fil( QDir(":/templates/").entryInfoList() );
+   foreach( const QFileInfo &fi, fil )
+   {
+      action = templateMenu->addAction( fi.baseName().replace('_',' ') );
+      action->setData( fi.filePath() );
+      connect( action, SIGNAL(triggered()),
+               mpDragWidget, SLOT(load()) );
+   }
+
+   action = new QAction( style.standardIcon( QStyle::SP_DialogOpenButton ), "Open File", this );
    action->setShortcuts( QKeySequence::Open );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(load()) );
    toolBar->addAction( action );
 
-   action = new QAction( style.standardIcon( QStyle::SP_DialogSaveButton ), "Save", this );
+   action = new QAction( style.standardIcon( QStyle::SP_DialogSaveButton ), "Save File", this );
    action->setShortcuts( QKeySequence::Save );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(save()) );
    toolBar->addAction( action );
 
-   action = new QAction( style.standardIcon( QStyle::SP_CommandLink ), "Export", this );
+   action = new QAction( style.standardIcon( QStyle::SP_CommandLink ), "Export To PNG", this );
    action->setShortcuts( QKeySequence::SaveAs );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(exportPng()) );
@@ -82,8 +119,8 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    toolBar->setObjectName( "ElementsToolBar" );
    toolBar->setContextMenuPolicy( Qt::PreventContextMenu );
 
-   action = new QAction( style.standardIcon( QStyle::SP_FileIcon ), "New", this );
-   action->setShortcuts( QKeySequence::New );
+   action = new QAction( style.standardIcon( QStyle::SP_FileIcon ), "New Element", this );
+   action->setShortcuts( QKeySequence::AddTab );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(newElement()) );
    toolBar->addAction( action );

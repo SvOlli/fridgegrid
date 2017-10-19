@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>fonts/erbosdraco_nova_open_nbp.ttf</file>
         <file>fonts/erbosdraco_nova_open_nbp.txt</file>
+        <file>templates/2600_asym_playfield_template.xml</file>
+        <file>templates/C64_pal_raster_paper.xml</file>
+        <file>templates/VIC20_ntsc_raster_paper.xml</file>
+        <file>templates/VIC20_pal_raster_paper.xml</file>
     </qresource>
 </RCC>

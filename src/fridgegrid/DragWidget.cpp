@@ -12,6 +12,7 @@
 /* system headers */
 
 /* Qt headers */
+#include <QAction>
 #include <QApplication>
 #include <QDomDocument>
 #include <QDrag>
@@ -361,13 +362,23 @@ void DragWidget::load()
 {
    QSettings settings;
    QFileInfo lastFilename( settings.value("Filename").toString() );
-   QString fileName = QFileDialog::getOpenFileName( this, QCoreApplication::applicationName(),
-                                                    lastFilename.absolutePath(), "*.xml" );
-   if( fileName.isEmpty() )
+   QString fileName;
+   QAction *action = qobject_cast<QAction*>( sender() );
+   if( action && !action->data().isNull() )
    {
-      return;
+      fileName = action->data().toString();
+      settings.remove( "Filename" );
    }
-   settings.setValue( "Filename", fileName );
+   else
+   {
+      fileName = QFileDialog::getOpenFileName( this, QCoreApplication::applicationName(),
+                                                       lastFilename.absolutePath(), "*.xml" );
+      if( fileName.isEmpty() )
+      {
+         return;
+      }
+      settings.setValue( "Filename", fileName );
+   }
 
    QFile file( fileName );
    file.open( QIODevice::ReadOnly );
