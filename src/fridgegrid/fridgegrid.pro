@@ -4,6 +4,7 @@ TEMPLATE = app
 QT += xml widgets
 
 include ( ../buildconfig.pri )
+DESTDIR = $${BINDIR}
 
 RESOURCES += ../resources/FridgeGrid.qrc
 #TRANSLATIONS += Translations/otts_de.ts
