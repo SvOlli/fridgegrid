@@ -27,7 +27,7 @@ RequestExecutionLevel admin
 SetCompressor /SOLID lzma
 
 ; License to use
-LicenseData ..\..\LICENSE.GPL
+LicenseData ..\..\LICENSE.TXT
 
 ;--------------------------------
 

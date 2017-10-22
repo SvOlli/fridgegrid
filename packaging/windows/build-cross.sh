@@ -1,23 +1,20 @@
 #!/bin/sh
 
 MINGW=/opt/mxe
-PLATFORM=i686-pc-mingw32
+PLATFORM=i686-w64-mingw32.static
 
 PACKAGINGDIR=../../build/packaging
 
-set -e
+set -ex
 
 export PATH=${PATH}:${MINGW}/usr/bin
 
 cd "$(dirname $0)"
-(cd ../..
-#rm -rf build
-#${PLATFORM}-qmake -r CONFIG+=debug_and_release
-MAKEFLAGS=-j4 make release QMAKE=${PLATFORM}-qmake)
+MAKEFLAGS=-j4 make -C ../.. release QMAKE=${PLATFORM}-qmake-qt5
 
 mkdir -p ${PACKAGINGDIR}
 
-for i in ../../build/release/bin/* ../../build/release/lib/*.dll; do
+for i in ../../build-release/bin/* ../../build-release/lib/*.dll; do
   if [ -f "${i}" ]; then
     INSTALLFILES="${INSTALLFILES} ${i}"
   fi

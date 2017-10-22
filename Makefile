@@ -4,7 +4,7 @@ BUILDDIR = build
 
 all: release
 
-.PHONY: debug release
+.PHONY: debug release exe windows dmg macosx
 
 release: $(BUILDDIR)-release/Makefile
 	+make -C $(BUILDDIR)-release all
@@ -24,9 +24,9 @@ $(BUILDDIR)-release $(BUILDDIR)-debug:
 distclean clean:
 	rm -rf $(BUILDDIR)-release $(BUILDDIR)-debug
 
-exe:
-	(cd packaging/windows ; ./build-cross.sh)
+exe windows:
+	packaging/windows/build-cross.sh
 
-dmg:
-	(cd packaging/macosx ; ./build-app.sh)
+dmg macosx:
+	packaging/macosx/build-app.sh
 
