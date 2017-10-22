@@ -358,18 +358,13 @@ void DragWidget::save()
 }
 
 
-void DragWidget::load()
+void DragWidget::load( const QString &templateFileName )
 {
    QSettings settings;
+   QString fileName( templateFileName );
    QFileInfo lastFilename( settings.value("Filename").toString() );
-   QString fileName;
-   QAction *action = qobject_cast<QAction*>( sender() );
-   if( action && !action->data().isNull() )
-   {
-      fileName = action->data().toString();
-      settings.remove( "Filename" );
-   }
-   else
+
+   if( fileName.isEmpty() )
    {
       fileName = QFileDialog::getOpenFileName( this, QCoreApplication::applicationName(),
                                                        lastFilename.absolutePath(), "*.xml" );
@@ -377,6 +372,15 @@ void DragWidget::load()
       {
          return;
       }
+   }
+
+   // an internal filename should not be saved to registry
+   if( fileName.startsWith( ':' ) )
+   {
+      settings.remove( "Filename" );
+   }
+   else
+   {
       settings.setValue( "Filename", fileName );
    }
 
@@ -445,8 +449,6 @@ void DragWidget::load()
          newLabel->setAttribute(Qt::WA_DeleteOnClose);
       }
    }
-
-   //return true;
 }
 
 

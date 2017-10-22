@@ -20,6 +20,7 @@
 #include <QDockWidget>
 #include <QMenu>
 #include <QSettings>
+#include <QSignalMapper>
 #include <QSplitter>
 #include <QTextEdit>
 #include <QTimer>
@@ -88,13 +89,17 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
       }
    }
 
+   QSignalMapper *signalMapper = new QSignalMapper( this );
+   connect( signalMapper, SIGNAL(mapped(QString)),
+            mpDragWidget, SLOT(load(QString)) );
    QFileInfoList fil( QDir(":/templates/").entryInfoList() );
    foreach( const QFileInfo &fi, fil )
    {
       action = templateMenu->addAction( fi.baseName().replace('_',' ') );
       action->setData( fi.filePath() );
       connect( action, SIGNAL(triggered()),
-               mpDragWidget, SLOT(load()) );
+               signalMapper, SLOT(map()));
+      signalMapper->setMapping( action, fi.filePath() );
    }
 
    action = new QAction( style.standardIcon( QStyle::SP_DialogOpenButton ), "Open File", this );

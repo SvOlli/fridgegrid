@@ -96,7 +96,7 @@ public slots:
     \brief \todo
 
    */
-   void load();
+   void load( const QString &templateFileName = QString() );
    /*!
     \brief \todo
 
