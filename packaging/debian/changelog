@@ -1,3 +1,10 @@
+fridgegrid (1.2) unstable; urgency=medium
+
+  * color of text now better readable now is more readable on any background
+  * files are now added to a "last files used"-list for quick loading
+
+ -- Sven Oliver Moll <svolli@svol.li>  Thu, 16 Nov 2017 21:00:54 +0100
+
 fridgegrid (1.1) unstable; urgency=medium
 
   * export to png
