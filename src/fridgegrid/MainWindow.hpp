@@ -15,6 +15,7 @@
 /* system headers */
 
 /* Qt headers */
+#include <QStringList>
 
 /* local library headers */
 
@@ -23,8 +24,10 @@
 /* forward declaration of Qt classes */
 class QDockWidget;
 class QLineEdit;
+class QMenu;
 class QModelIndex;
 class QPushButton;
+class QSignalMapper;
 class QSplitter;
 class QTextEdit;
 
@@ -62,6 +65,11 @@ public slots:
    */
    void commentChange();
 
+   /*!
+    \brief \todo
+   */
+   void fileUsed( const QString &fileName = QString() );
+
 signals:
 
 protected:
@@ -69,9 +77,12 @@ protected:
 private:
    Q_DISABLE_COPY( MainWindow )
 
+   QMenu          *mpLastFilesMenu; /*!< \brief \todo TODO */
+   QSignalMapper  *mpLastFilesMapper; /*!< \brief \todo TODO */
    QSplitter      *mpSplitter; /*!< \brief \todo TODO */
    QTextEdit      *mpTextEdit; /*!< \brief \todo TODO */
    DragWidget     *mpDragWidget; /*!< \brief the central widget */
+   QStringList    mLastFilenames; /*!< \brief \todo TODO */
 };
 
 /*! @} */

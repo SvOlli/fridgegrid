@@ -110,6 +110,9 @@ public slots:
    */
    void newElement( const QByteArray &d = QByteArray(), const QPoint &p = QPoint() );
 
+signals:
+   void fileUsed( const QString &fileName );
+
 protected:
    /*!
     \brief \todo

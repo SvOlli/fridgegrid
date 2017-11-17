@@ -36,15 +36,26 @@
 
 MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 : QMainWindow( parent, flags )
+, mpLastFilesMenu( new QMenu( this ) )
+, mpLastFilesMapper( new QSignalMapper( this ) )
 , mpSplitter( new QSplitter( Qt::Vertical, this ) )
 , mpTextEdit( new QTextEdit( mpSplitter ) )
 , mpDragWidget( new DragWidget( mpSplitter ) )
+, mLastFilenames()
 {
    QCommonStyle style;
    QSettings settings;
    QMenu *templateMenu( new QMenu( this ) );
+   mLastFilenames = settings.value( "LastUsed" ).toStringList();
+   mpLastFilesMenu->setToolTipsVisible( true );
+
+   connect( mpLastFilesMapper, SIGNAL(mapped(QString)),
+            mpDragWidget, SLOT(load(QString)) );
+   connect( mpDragWidget, SIGNAL(fileUsed(QString)),
+            this, SLOT(fileUsed(QString)) );
 
    templateMenu->setObjectName( "TemplateMenu" );
+   mpLastFilesMenu->setObjectName( "LastFileMenu" );
 
    mpSplitter->setObjectName( "CentralSplitter" );
    mpSplitter->addWidget( mpTextEdit );
@@ -104,6 +115,7 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 
    action = new QAction( style.standardIcon( QStyle::SP_DialogOpenButton ), "Open File", this );
    action->setShortcuts( QKeySequence::Open );
+   action->setMenu( mpLastFilesMenu );
    connect( action, SIGNAL(triggered()),
             mpDragWidget, SLOT(load()) );
    toolBar->addAction( action );
@@ -145,6 +157,8 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
             updateDelay, SLOT(start()) );
    connect( updateDelay, SIGNAL(timeout()),
             this, SLOT(commentChange()) );
+
+   fileUsed();
 }
 
 
@@ -170,5 +184,31 @@ void MainWindow::commentChange()
    else
    {
       setWindowTitle( QCoreApplication::applicationName() );
+   }
+}
+
+
+void MainWindow::fileUsed( const QString &fileName )
+{
+   QSettings settings;
+
+   if( !fileName.isEmpty() )
+   {
+      mLastFilenames.removeAll( fileName );
+      mLastFilenames.prepend( fileName );
+      while( mLastFilenames.size() > 20 ) /* \todo TODO: make configurable */
+      {
+         mLastFilenames.takeLast();
+      }
+      settings.setValue( "LastUsed", mLastFilenames );
+   }
+
+   mpLastFilesMenu->clear();
+   foreach ( const QString &fileName, mLastFilenames ) {
+      QAction *entry = mpLastFilesMenu->addAction( fileName.mid(fileName.lastIndexOf("/")+1) );
+      entry->setToolTip( fileName );
+      connect( entry, SIGNAL(triggered()),
+               mpLastFilesMapper, SLOT(map()));
+      mpLastFilesMapper->setMapping( entry, fileName );
    }
 }

@@ -328,6 +328,7 @@ void DragWidget::save()
       return;
    }
    settings.setValue( "Filename", fileName );
+   emit fileUsed( fileName );
 
    QDomDocument domDoc;
    QDomElement domRoot = domDoc.createElement( "FridgeGrid" );
@@ -382,6 +383,7 @@ void DragWidget::load( const QString &templateFileName )
    else
    {
       settings.setValue( "Filename", fileName );
+      emit fileUsed( fileName );
    }
 
    QFile file( fileName );
