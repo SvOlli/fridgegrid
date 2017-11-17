@@ -7,7 +7,7 @@ QTDIR=/usr/local/Trolltech/Qt-4.7.0
 export PATH=${PATH}:${QTDIR}/bin
 
 PACKAGINGDIR=../../build/package
-BUILDAPP=../../build/release/bin/fridgegrid.app
+BUILDAPP=../../build-release/bin/fridgegrid.app
 DEPLOYAPP=${PACKAGINGDIR}/fridgegrid.app
 PLUGINDIR=Contents/PlugIns
 
@@ -15,16 +15,13 @@ if [ -d "${DEPLOYAPP}" ]; then
   rm -rf "${DEPLOYAPP}"
 fi
 
-(cd ../..
-# rm -rf build
-# qmake -r CONFIG+=release
- make release)
+make -C ../.. release
 
 mkdir -p "$(dirname ${DEPLOYAPP})"
 cp -a "${BUILDAPP}" "${DEPLOYAPP}"
 
 mkdir -p "${DEPLOYAPP}/${PLUGINDIR}"
-for plugin in ../../build/release/lib/*.dylib; do
+for plugin in ../../build-release/lib/*.dylib; do
   if [ -f ${plugin} ]; then
     echo "${plugin}"
     cp "${plugin}" "${DEPLOYAPP}/${PLUGINDIR}"

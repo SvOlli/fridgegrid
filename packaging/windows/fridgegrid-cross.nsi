@@ -52,7 +52,7 @@ Section "fridgegrid (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  !include ..\..\build\packaging\files-install.nsh
+  !include ..\..\build-release\packaging\files-install.nsh
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\fridgegrid "Install_Dir" "$INSTDIR"
@@ -86,7 +86,7 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\fridgegrid
 
   ; Remove files and uninstaller
-  !include ..\..\build\packaging\files-delete.nsh
+  !include ..\..\build-release\packaging\files-delete.nsh
   Delete $INSTDIR\uninstall.exe
 
   ; Remove shortcuts, if any
