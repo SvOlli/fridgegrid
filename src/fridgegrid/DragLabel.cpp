@@ -217,16 +217,9 @@ void DragLabel::draw()
    painter.drawRect( QRectF(0.5, 0.5, image.width()-1, image.height()-1) );
 
    painter.setFont( font );
-   if( (mColor.red()   < 96) &&
-       (mColor.green() < 96) &&
-       (mColor.blue()  < 96) )
-   {
-      painter.setPen( QColor(255,255,255) );
-   }
-   else
-   {
-      painter.setPen( QColor(0,0,0) );
-   }
+
+   qreal bright = 0.299 * mColor.redF() + 0.587 * mColor.greenF() + 0.114 * mColor.blueF();
+   painter.setPen( bright >= 0.5 ? QColor(0,0,0) : QColor(255,255,255) );
    painter.drawText( QRect(mpParent->gridStyle().topLeft(), size), Qt::AlignCenter, text );
    painter.end();
 

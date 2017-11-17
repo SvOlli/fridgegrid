@@ -45,7 +45,7 @@ DragLabelPropertiesDialog::DragLabelPropertiesDialog( DragLabel *parent )
    mpWidthEdit->setValue( mpParent->gridSize().width() );
    mpHeightEdit->setValue( mpParent->gridSize().height() );
    mpWidthEdit->setRange( 1, 76 );
-   mpHeightEdit->setRange( 1, 30 );
+   mpHeightEdit->setRange( 1, 50 );
    mpColorEdit->setMaxLength( 6 );
    mpColorEdit->setText( mpParent->color().name().mid(1) );
 
