@@ -3,7 +3,7 @@ PROJECT = fridgegrid
 TEMPLATE = app
 QT += xml widgets
 
-include ( ../buildconfig.pri )
+include( $${QMAKEDIR}/buildconfig.pri )
 DESTDIR = $${BINDIR}
 
 RESOURCES += ../resources/FridgeGrid.qrc
