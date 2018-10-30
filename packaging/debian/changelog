@@ -1,3 +1,9 @@
+fridgegrid (1.3) UNRELEASED; urgency=medium
+
+  * creation of data and templates directory
+
+ -- Sven Oliver Moll <svolli@svol.li>  Tue, 30 Oct 2018 23:12:09 +0100
+
 fridgegrid (1.2) unstable; urgency=medium
 
   * color of text now better readable now is more readable on any background
