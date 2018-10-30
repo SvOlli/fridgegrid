@@ -47,9 +47,9 @@ for i in ${INSTALLFILES} ${QTLIBS};do
     >> ${PACKAGINGDIR}/files-delete.nsh
 done
 
-${PLATFORM}-makensis fridgegrid-cross.nsi
-outfile="$(grep OutFile fridgegrid-cross.nsi|cut -f2 -d\"|tr '\\' '/')"
-relfile="$(echo ${outfile}|sed "s/-installer/-${version}-installer/")"
+${PLATFORM}-makensis FridgeGrid-cross.nsi
+outfile="$(grep OutFile FridgeGrid-cross.nsi|cut -f2 -d\"|tr '\\' '/')"
+relfile="$(echo ${outfile}|sed "s/-Installer/-${version}-Installer/")"
 
 mv -v "${outfile}" "${relfile}"
 
