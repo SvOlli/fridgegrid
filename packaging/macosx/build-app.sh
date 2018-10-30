@@ -1,14 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 cd "$(dirname $0)"
 
-QTDIR=/usr/local/Trolltech/Qt-4.7.0
+QTDIR="${HOME}/Qt5.11.1/5.11.1/clang_64"
 export PATH=${PATH}:${QTDIR}/bin
+
+# obtain version from debian changelog
+version="$(head -1 ../debian/changelog | sed 's/.*(\([^)]*\)).*/\1/')"
 
 PACKAGINGDIR=../../build/package
 BUILDAPP=../../build-release/bin/fridgegrid.app
-DEPLOYAPP=${PACKAGINGDIR}/fridgegrid.app
+DEPLOYAPP=${PACKAGINGDIR}/FridgeGrid.app
 PLUGINDIR=Contents/PlugIns
 
 if [ -d "${DEPLOYAPP}" ]; then
@@ -36,6 +39,6 @@ done
 
 (cd "$(dirname ${DEPLOYAPP})";macdeployqt "$(basename ${DEPLOYAPP})" -verbose=2)
 pwd
-rm -f ../../../fridgegrid.dmg
-hdiutil create ../../../fridgegrid.dmg -volname "FridgeGrid" -fs HFS+ -srcfolder "${DEPLOYAPP}"
+rm -f ../../../FridgeGrid-${version}.dmg
+hdiutil create ../../../FridgeGrid-${version}.dmg -volname "FridgeGrid ${version}" -fs HFS+ -srcfolder "${DEPLOYAPP}"
 
