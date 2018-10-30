@@ -14,6 +14,7 @@
 /* Qt headers */
 #include <QCoreApplication>
 #include <QFileInfoList>
+#include <QSettings>
 #include <QStandardPaths>
 
 /* local library headers */
@@ -21,12 +22,21 @@
 /* local headers */
 
 
+#define SETTINGS_CREATETEMPLATESDIR "CreateTemplatesDir"
+
 DocumentsDir::DocumentsDir()
 : mDir()
 {
+   QSettings settings;
    QDir templatesDir( getTemplatesDirName() );
 
-   if( !templatesDir.exists() )
+   if( !settings.contains( SETTINGS_CREATETEMPLATESDIR ) )
+   {
+      settings.setValue( SETTINGS_CREATETEMPLATESDIR, true );
+   }
+
+   if( !templatesDir.exists() &&
+       settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool() )
    {
       generateTemplateDir();
    }
@@ -41,8 +51,16 @@ QFileInfoList DocumentsDir::getTemplates() const
 
 QString DocumentsDir::getTemplatesDirName() const
 {
-   return QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation ) +
-          "/" + QCoreApplication::applicationName() + "/Templates";
+   QSettings settings;
+   if( settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool() )
+   {
+      return QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation ) +
+             "/" + QCoreApplication::applicationName() + "/Templates";
+   }
+   else
+   {
+      return ":/templates/";
+   }
 }
 
 
