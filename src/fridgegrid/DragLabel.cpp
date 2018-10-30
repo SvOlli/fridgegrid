@@ -194,16 +194,16 @@ void DragLabel::draw()
    bool rotate = false;
    QSize grid( mpParent->gridSize() );
 
-   if( (mSize.width() * grid.width() - 4) >= (mSize.height() * grid.height() - 4) )
+   if( (mSize.width() * grid.width() - 3) >= (mSize.height() * grid.height() - 3) )
    {
-      imgWidth  = (mSize.width() * grid.width() - 4);
-      imgHeight = (mSize.height() * grid.height() - 4);
+      imgWidth  = (mSize.width() * grid.width() - 3);
+      imgHeight = (mSize.height() * grid.height() - 3);
       rotate = false;
    }
    else
    {
-      imgHeight = (mSize.width() * grid.width() - 4);
-      imgWidth  = (mSize.height() * grid.height() - 4);
+      imgHeight = (mSize.width() * grid.width() - 3);
+      imgWidth  = (mSize.height() * grid.height() - 3);
       rotate = true;
    }
    QImage image( imgWidth, imgHeight, QImage::Format_ARGB32_Premultiplied );
@@ -212,7 +212,9 @@ void DragLabel::draw()
 
    QPainter painter;
    painter.begin( &image );
-   painter.setRenderHint( QPainter::Antialiasing );
+   painter.setRenderHints( QPainter::Antialiasing |
+                           QPainter::TextAntialiasing |
+                           QPainter::QPainter::HighQualityAntialiasing, false );
    painter.setBrush( mColor );
    painter.drawRect( QRectF(0.5, 0.5, image.width()-1, image.height()-1) );
 

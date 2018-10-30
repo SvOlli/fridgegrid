@@ -30,7 +30,6 @@ int main( int argc, char *argv[] )
       foreach( const QFileInfo &entry, dir.entryInfoList( QStringList("*.ttf")) )
       {
          int id = QFontDatabase::addApplicationFont( entry.absoluteFilePath() );
-         qDebug() << entry.absoluteFilePath() << id << QFontDatabase::applicationFontFamilies( id );
       }
    }
    MainWindow window;

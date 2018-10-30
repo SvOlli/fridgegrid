@@ -28,19 +28,23 @@
 #include <QTextStream>
 #include <QTextEdit>
 
-//#include <QSize>
-
 /* local library headers */
 
 /* local headers */
 #include "DragLabel.hpp"
 
+/* workaround: mac has a different font size interpretation as linux and windows */
+#ifdef Q_OS_MAC
+static const int ERBOS_FONTSIZE = 8;
+#else
+static const int ERBOS_FONTSIZE = 6;
+#endif
 
 DragWidget::DragWidget( QWidget *parent )
 : QWidget( parent )
 , mpTextEdit( 0 )
-, mGridStyle( "Default", QSize(15,15),
-              QFont("ErbosDraco Nova Open NBP", 6), QPoint( 2, 1 ), true )
+, mGridStyle( "Default", QSize(14,14),
+              QFont("ErbosDraco Nova Open NBP", ERBOS_FONTSIZE), QPoint( 2, 1 ), true )
 {
    setMinimumSize( 400, 200 );
    setAcceptDrops( true );
@@ -265,7 +269,9 @@ void DragWidget::paintEvent( QPaintEvent *event )
 {
    Q_UNUSED( event );
    QPainter painter( this );
-   painter.setRenderHint( QPainter::Antialiasing );
+   painter.setRenderHints( QPainter::Antialiasing |
+                           QPainter::TextAntialiasing |
+                           QPainter::QPainter::HighQualityAntialiasing, false );
    painter.setBrush( Qt::black );
    for( int i = mGridStyle.gridSize().width() - 1; i < size().width() ; i += mGridStyle.gridSize().width() )
    {
