@@ -10,6 +10,9 @@ RESOURCES += ../resources/FridgeGrid.qrc
 #TRANSLATIONS += Translations/otts_de.ts
 CODECFORTR += UTF-8
 
+SOURCES += DocumentsDir.cpp
+HEADERS += DocumentsDir.hpp
+
 SOURCES += DragLabel.cpp
 HEADERS += DragLabel.hpp
 

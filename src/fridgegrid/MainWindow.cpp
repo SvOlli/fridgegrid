@@ -30,6 +30,7 @@
 /* local library headers */
 
 /* local headers */
+#include "DocumentsDir.hpp"
 #include "DragWidget.hpp"
 
 #include <QtDebug>
@@ -43,6 +44,7 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
 , mpDragWidget( new DragWidget( mpSplitter ) )
 , mLastFilenames()
 {
+   DocumentsDir docDir;
    QCommonStyle style;
    QSettings settings;
    QMenu *templateMenu( new QMenu( this ) );
@@ -83,14 +85,14 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    action = new QAction( style.standardIcon( QStyle::SP_FileDialogNewFolder ), "New Grid", this );
    action->setShortcuts( QKeySequence::New );
    action->setMenu( templateMenu );
-   action->setVisible(true);
+   action->setVisible( true );
    toolBar->addAction( action );
 
    // just want to tell the associated button, that we always want the menu list
    // can't this be done easier?
    {
       QList<QWidget*> wl( action->associatedWidgets() );
-      foreach(QWidget *w, wl)
+      foreach( QWidget *w, wl )
       {
          QToolButton *b = qobject_cast<QToolButton*>(w);
          if( b )
@@ -103,8 +105,8 @@ MainWindow::MainWindow( QWidget *parent, Qt::WindowFlags flags )
    QSignalMapper *signalMapper = new QSignalMapper( this );
    connect( signalMapper, SIGNAL(mapped(QString)),
             mpDragWidget, SLOT(load(QString)) );
-   QFileInfoList fil( QDir(":/templates/").entryInfoList() );
-   foreach( const QFileInfo &fi, fil )
+
+   foreach( const QFileInfo &fi, docDir.getTemplates() )
    {
       action = templateMenu->addAction( fi.baseName().replace('_',' ') );
       action->setData( fi.filePath() );
