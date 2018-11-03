@@ -25,7 +25,6 @@
 #define SETTINGS_CREATETEMPLATESDIR "CreateTemplatesDir"
 
 DocumentsDir::DocumentsDir()
-: mDir()
 {
    QSettings settings;
    QDir templatesDir( getTemplatesDirName() );
@@ -34,9 +33,9 @@ DocumentsDir::DocumentsDir()
    {
       settings.setValue( SETTINGS_CREATETEMPLATESDIR, true );
    }
+   mUseDocDir = settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool();
 
-   if( !templatesDir.exists() &&
-       settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool() )
+   if( mUseDocDir && !templatesDir.exists() )
    {
       generateTemplateDir();
    }
@@ -51,8 +50,7 @@ QFileInfoList DocumentsDir::getTemplates() const
 
 QString DocumentsDir::getTemplatesDirName() const
 {
-   QSettings settings;
-   if( settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool() )
+   if( mUseDocDir )
    {
       return QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation ) +
              "/" + QCoreApplication::applicationName() + "/Templates";
