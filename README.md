@@ -11,6 +11,10 @@ Originally developed for creating Atari 2600 VCS demos, it was extended be
 usable for other systems as well. Templates include also the VIC-20 and the
 C64.
 
+This is an example what it looks like:
+![Screenshot](FridgeGrid.png)
+A more detailed example is available at https://xayax.net/tools/fridgegrid/
+
 Packaging
 ---------
 Packaging is rather forward
@@ -32,6 +36,6 @@ Packaging is rather forward
 
 4) Mac OS X
 
-   This used to be build on an old 10.6 machine, the only Mac OS X system I've
-   got access to.
+   Same as Windows, but a different build script will be used to create a dmg
+   containing the application.
 
