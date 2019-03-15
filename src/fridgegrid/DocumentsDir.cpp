@@ -27,7 +27,6 @@
 DocumentsDir::DocumentsDir()
 {
    QSettings settings;
-   QDir templatesDir( getTemplatesDirName() );
 
    if( !settings.contains( SETTINGS_CREATETEMPLATESDIR ) )
    {
@@ -35,6 +34,9 @@ DocumentsDir::DocumentsDir()
    }
    mUseDocDir = settings.value( SETTINGS_CREATETEMPLATESDIR ).toBool();
 
+   /* must not be created ealier,
+      since getTemplateDirName() depends on mUseDocDir */
+   QDir templatesDir( getTemplatesDirName() );
    if( mUseDocDir && !templatesDir.exists() )
    {
       generateTemplateDir();
