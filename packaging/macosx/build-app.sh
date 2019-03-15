@@ -4,15 +4,19 @@ set -e
 cd "$(dirname $0)"
 
 QTDIR="${HOME}/Qt5.11.1/5.11.1/clang_64"
-export PATH=${PATH}:${QTDIR}/bin
+if [ -x "${QTDIR}/bin/qmake" ]; then
+  echo "QTDIR does not exist or does not contain Qt tools."
+  exit 1
+fi
+export PATH="${PATH}:${QTDIR}/bin"
 
 # obtain version from debian changelog
 version="$(head -1 ../debian/changelog | sed 's/.*(\([^)]*\)).*/\1/')"
 
-PACKAGINGDIR=../../build/package
-BUILDAPP=../../build-release/bin/fridgegrid.app
-DEPLOYAPP=${PACKAGINGDIR}/FridgeGrid.app
-PLUGINDIR=Contents/PlugIns
+PACKAGINGDIR="../../build/package"
+BUILDAPP="../../build-release/bin/fridgegrid.app"
+DEPLOYAPP="${PACKAGINGDIR}/FridgeGrid.app"
+PLUGINDIR="Contents/PlugIns"
 
 if [ -d "${DEPLOYAPP}" ]; then
   rm -rf "${DEPLOYAPP}"
