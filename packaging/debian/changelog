@@ -1,4 +1,11 @@
-fridgegrid (1.3) UNRELEASED; urgency=medium
+fridgegrid (1.4) unstable; urgency=medium
+
+  * new template for Atari 2600 VCS
+  * creation of templates can now be disabled using registry/settings
+
+ -- Sven Oliver Moll <svolli@svol.li>  Sat, 16 Mar 2019 00:34:45 +0100
+
+fridgegrid (1.3) unstable; urgency=medium
 
   * creation of data and templates directory
 
