@@ -3,8 +3,8 @@
 set -e
 cd "$(dirname $0)"
 
-QTDIR="${HOME}/Qt5.11.1/5.11.1/clang_64"
-if [ -x "${QTDIR}/bin/qmake" ]; then
+[ -n "${QTDIR}" ] || QTDIR="${HOME}/Qt/5.12.2/clang_64"
+if [ ! -x "${QTDIR}/bin/qmake" ]; then
   echo "QTDIR does not exist or does not contain Qt tools."
   exit 1
 fi
